@@ -9,10 +9,10 @@ namespace I8SSYF_HFT_2021221.Repository
 {
     public interface ICarRepository
     {
-        void Create(Model model);
-        void Delete(int modelId);
-        Model Read(int modelId);
-        IQueryable<Model> ReadAll();
-        void Update(Model model);
+        void Create(Car car);
+        void Delete(int carId);
+        Car Read(int carId);
+        IQueryable<Car> ReadAll();
+        void Update(Car car);
     }
 }

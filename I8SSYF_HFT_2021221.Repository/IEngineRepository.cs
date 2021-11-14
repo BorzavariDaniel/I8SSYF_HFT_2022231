@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Repository
 {
-    interface IEngineRepository
+    public interface IEngineRepository
     {
         void Create(Engine engine);
         void Delete(int engineId);
