@@ -11,6 +11,7 @@ namespace I8SSYF_HFT_2021221.Repository
     public class ModelRepository : IModelRepository
     {
         CarDbContext db;
+
         public ModelRepository(CarDbContext db)
         {
             this.db = db;
