@@ -8,24 +8,18 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Models
 {
-    public class Car
+    public class Engine
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
+        public string Fuel { get; set; }
+        public int NumOfCylinders { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Engine> Engines { get; set; }
+        public virtual Car Car { get; set; }
 
-        [NotMapped]
-        public virtual ICollection<Model> Models { get; set; }
-
-        public Car()
-        {
-            Engines = new HashSet<Engine>();
-            Models = new HashSet<Model>();
-        }
+        [ForeignKey(nameof(Car))]
+        public int CarId { get; set; }
     }
 }
