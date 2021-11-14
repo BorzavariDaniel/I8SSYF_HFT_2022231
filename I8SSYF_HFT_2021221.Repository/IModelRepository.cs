@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Repository
 {
-    public interface ICarRepository
+    public interface IModelRepository
     {
         void Create(Model model);
         void Delete(int modelId);
