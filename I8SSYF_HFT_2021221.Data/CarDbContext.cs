@@ -48,11 +48,11 @@ namespace I8SSYF_HFT_2021221.Data
                 .OnDelete(DeleteBehavior.Restrict);
             });
 
-            Car car1 = new Car() { Id = 1, Name = "BMW 530i" };
-            Car car2 = new Car() { Id = 2, Name = "BMW 330d" };
-            Car car3 = new Car() { Id = 3, Name = "BMW 750i" };
-            Car car4 = new Car() { Id = 4, Name = "BMW 525d" };
-            Car car5 = new Car() { Id = 5, Name = "BMW 740i" };
+            Car car1 = new Car() { Id = 1, Name = "BMW 530i", Price = 3000000 };
+            Car car2 = new Car() { Id = 2, Name = "BMW 330d", Price = 2500000 };
+            Car car3 = new Car() { Id = 3, Name = "BMW 750i", Price = 4000000 };
+            Car car4 = new Car() { Id = 4, Name = "BMW 525d", Price = 2000000 };
+            Car car5 = new Car() { Id = 5, Name = "BMW 740i", Price = 5000000 };
 
             Model model1 = new Model() { Id = 1, CarId = car1.Id, Shape = "Sedan" };
             Model model2 = new Model() { Id = 2, CarId = car2.Id, Shape = "Coupe" };
