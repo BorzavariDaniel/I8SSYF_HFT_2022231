@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Logic
 {
-    interface IModelLogic
+    public interface IModelLogic
     {
         void Create(Model model);
         IQueryable<Model> ReadAll();

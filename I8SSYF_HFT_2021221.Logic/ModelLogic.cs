@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Logic
 {
-    class ModelLogic : IModelLogic
+    public class ModelLogic : IModelLogic
     {
         IModelRepository repo;
 
