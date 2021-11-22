@@ -9,12 +9,12 @@ namespace I8SSYF_HFT_2021221.Logic
 {
     interface ICarLogic
     {
-        void Create(Car car);
-        IQueryable<Car> ReadAll();
-        void Update(Car car);
-        void Delete(int carId);
+        void Create(Engine engine);
+        IQueryable<Engine> ReadAll();
+        void Update(Engine engine);
+        void Delete(int engineId);
 
-        double AveragePrice();
+        double AverageNumberOfCylinders();
 
         IEnumerable<KeyValuePair<string, double>>
             AveragePricesByBrands();
