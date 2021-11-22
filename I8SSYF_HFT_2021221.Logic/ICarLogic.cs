@@ -17,6 +17,6 @@ namespace I8SSYF_HFT_2021221.Logic
         double AverageNumberOfCylinders();
 
         IEnumerable<KeyValuePair<string, double>>
-            AveragePricesByBrands();
+            AverageNumberOfCylindersByModels();
     }
 }

@@ -10,41 +10,41 @@ namespace I8SSYF_HFT_2021221.Logic
 {
     class CarLogic : ICarLogic
     {
-        ICarRepository repo;
+        IEngineRepository repo;
 
-        public CarLogic(ICarRepository repo)
+        public CarLogic(IEngineRepository repo)
         {
             this.repo = repo;
         }
 
-        public double AveragePrice()
+        public double AverageNumberOfCylinders()
         {
-            return repo.ReadAll().Average(x => x.Price);
+            return repo.ReadAll().Average(y => y.NumOfCylinders);
         }
 
-        public IEnumerable<KeyValuePair<string, double>> AveragePricesByBrands()
+        public IEnumerable<KeyValuePair<string, double>> AverageNumberOfCylindersByModels()
         {
-            throw new NotImplementedException();
+            return repo.ReadAll().GroupBy(x => x.Car).Select(x => new KeyValuePair<string, double>(x.Key.Name, x.Average(y => y.NumOfCylinders)));
         }
 
-        public void Create(Car car)
+        public void Create(Engine engine)
         {
-            throw new NotImplementedException();
+            repo.Create(engine);
         }
 
-        public void Delete(int carId)
+        public void Delete(int engineId)
         {
-            throw new NotImplementedException();
+            repo.Delete(engineId);
         }
 
-        public IQueryable<Car> ReadAll()
+        public IQueryable<Engine> ReadAll()
         {
-            throw new NotImplementedException();
+            return repo.ReadAll();
         }
 
-        public void Update(Car car)
+        public void Update(Engine engine)
         {
-            throw new NotImplementedException();
+            repo.Update(engine);
         }
     }
 }
