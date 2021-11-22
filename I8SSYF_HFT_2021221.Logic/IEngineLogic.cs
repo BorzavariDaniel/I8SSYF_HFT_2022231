@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Logic
 {
-    interface ICarLogic
+    public interface IEngineLogic
     {
         void Create(Engine engine);
         IQueryable<Engine> ReadAll();

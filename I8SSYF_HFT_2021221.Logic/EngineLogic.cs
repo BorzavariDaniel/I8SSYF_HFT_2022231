@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace I8SSYF_HFT_2021221.Logic
 {
-    class CarLogic : ICarLogic
+    public class EngineLogic : IEngineLogic
     {
         IEngineRepository repo;
 
-        public CarLogic(IEngineRepository repo)
+        public EngineLogic(IEngineRepository repo)
         {
             this.repo = repo;
         }
