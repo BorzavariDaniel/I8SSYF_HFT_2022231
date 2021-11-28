@@ -1,3 +1,6 @@
+using I8SSYF_HFT_2021221.Data;
+using I8SSYF_HFT_2021221.Logic;
+using I8SSYF_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,13 +15,21 @@ namespace I8SSYF_HFT_2021221.Endpoint
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
+
+            services.AddTransient<IEngineLogic, EngineLogic>();
+            services.AddTransient<IModelLogic, ModelLogic>();
+            //services.AddTransient<,>();
+
+            services.AddTransient<ICarRepository, CarRepository>();
+            services.AddTransient<IModelRepository, ModelRepository>();
+            services.AddTransient<IEngineRepository, EngineRepository>();
+
+            services.AddTransient<CarDbContext, CarDbContext>();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -30,10 +41,7 @@ namespace I8SSYF_HFT_2021221.Endpoint
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
