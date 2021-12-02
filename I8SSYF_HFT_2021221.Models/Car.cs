@@ -17,15 +17,15 @@ namespace I8SSYF_HFT_2021221.Models
         public int Price { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Engine> Engines { get; set; }
+        public virtual Engine Engine { get; set; }
 
         [NotMapped]
-        public virtual ICollection<Model> Models { get; set; }
+        public virtual Model Model { get; set; }
 
-        public Car()
-        {
-            Engines = new HashSet<Engine>();
-            Models = new HashSet<Model>();
-        }
+        [ForeignKey(nameof(Model))]
+        public int ModelId { get; set; }
+
+        [ForeignKey(nameof(Engine))]
+        public int EngineId { get; set; }
     }
 }

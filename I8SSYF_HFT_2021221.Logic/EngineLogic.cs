@@ -17,16 +17,6 @@ namespace I8SSYF_HFT_2021221.Logic
             this.repo = repo;
         }
 
-        public double AverageNumberOfCylinders()
-        {
-            return repo.ReadAll().Average(y => y.NumOfCylinders);
-        }
-
-        public IEnumerable<KeyValuePair<string, double>> AverageNumberOfCylindersByModels()
-        {
-            return repo.ReadAll().GroupBy(x => x.Car).Select(x => new KeyValuePair<string, double>(x.Key.Name, x.Average(y => y.NumOfCylinders)));
-        }
-
         public void Create(Engine engine)
         {
             repo.Create(engine);
@@ -35,6 +25,11 @@ namespace I8SSYF_HFT_2021221.Logic
         public void Delete(int engineId)
         {
             repo.Delete(engineId);
+        }
+
+        public Engine Read(int engineId)
+        {
+            return repo.Read(engineId);
         }
 
         public IQueryable<Engine> ReadAll()

@@ -12,13 +12,15 @@ namespace I8SSYF_HFT_2021221.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ModelId { get; set; }
         public string Shape { get; set; }
 
         [NotMapped]
-        public virtual Car Car { get; set; }
-        
-        [ForeignKey(nameof(Car))]
-        public int CarId { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
+
+        public Model()
+        {
+            Cars = new HashSet<Car>();
+        }
     }
 }

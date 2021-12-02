@@ -12,14 +12,16 @@ namespace I8SSYF_HFT_2021221.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int EngineId { get; set; }
         public string Fuel { get; set; }
         public int NumOfCylinders { get; set; }
 
         [NotMapped]
-        public virtual Car Car { get; set; }
+        public virtual ICollection<Car> Cars { get; set; }
 
-        [ForeignKey(nameof(Car))]
-        public int CarId { get; set; }
+        public Engine()
+        {
+            Cars = new HashSet<Car>();
+        }
     }
 }

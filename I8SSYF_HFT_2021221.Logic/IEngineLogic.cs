@@ -13,10 +13,6 @@ namespace I8SSYF_HFT_2021221.Logic
         IQueryable<Engine> ReadAll();
         void Update(Engine engine);
         void Delete(int engineId);
-
-        double AverageNumberOfCylinders();
-
-        IEnumerable<KeyValuePair<string, double>>
-            AverageNumberOfCylindersByModels();
+        Engine Read(int engineID);
     }
 }

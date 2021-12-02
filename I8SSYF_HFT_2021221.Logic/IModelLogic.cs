@@ -13,10 +13,6 @@ namespace I8SSYF_HFT_2021221.Logic
         IQueryable<Model> ReadAll();
         void Update(Model model);
         void Delete(int modelId);
-
-        int ShapeCounter();
-
-        IEnumerable<KeyValuePair<string, double>>
-            CountOfShape();
+        Model Read(int modelId);
     }
 }

@@ -27,19 +27,14 @@ namespace I8SSYF_HFT_2021221.Logic
             repo.Delete(modelId);
         }
 
+        public Model Read(int modelId)
+        {
+            return repo.Read(modelId);
+        }
+
         public IQueryable<Model> ReadAll()
         {
             return repo.ReadAll();
-        }
-
-        public IEnumerable<KeyValuePair<string, double>> CountOfShape()
-        {
-            return repo.ReadAll().GroupBy(x => x.Car).Select(x => new KeyValuePair<string, double>(x.Key.Name, x.GroupBy(y => y.Shape).Count()));
-        }
-
-        public int ShapeCounter()
-        {
-            return repo.ReadAll().GroupBy(y => y.Shape).Count();
         }
 
         public void Update(Model model)
