@@ -33,7 +33,7 @@ namespace I8SSYF_HFT_2021221.Repository
         public Model Read(int modelId)
         {
             return db.Models
-                .FirstOrDefault(t => t.Id == modelId);
+                .FirstOrDefault(t => t.ModelId == modelId);
         }
 
         public IQueryable<Model> ReadAll()
@@ -43,9 +43,9 @@ namespace I8SSYF_HFT_2021221.Repository
 
         public void Update(Model model)
         {
-            var oldModel = Read(model.Id);
+            var oldModel = Read(model.ModelId);
             oldModel.Shape = model.Shape;
-            oldModel.CarId = model.CarId;
+            oldModel.ModelId = model.ModelId;
             db.SaveChanges();
         }
     }

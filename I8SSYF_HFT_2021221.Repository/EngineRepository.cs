@@ -33,7 +33,7 @@ namespace I8SSYF_HFT_2021221.Repository
         public Engine Read(int engineId)
         {
             return db.Engines
-                .FirstOrDefault(t => t.Id == engineId);
+                .FirstOrDefault(t => t.EngineId == engineId);
         }
 
         public IQueryable<Engine> ReadAll()
@@ -43,10 +43,10 @@ namespace I8SSYF_HFT_2021221.Repository
 
         public void Update(Engine engine)
         {
-            var oldEngine = Read(engine.Id);
+            var oldEngine = Read(engine.EngineId);
             oldEngine.Fuel = engine.Fuel;
             oldEngine.NumOfCylinders = engine.NumOfCylinders;
-            oldEngine.CarId = engine.CarId;
+            oldEngine.EngineId = engine.EngineId;
             db.SaveChanges();
         }
     }
