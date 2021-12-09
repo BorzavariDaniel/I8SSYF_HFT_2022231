@@ -95,17 +95,14 @@ namespace I8SSYF_HFT_2021221.Test
         [Test]
         public void Test3()
         {
-            //Act
-
-            //Assert
+            var result = carLogic.AveragePriceByModels().ToList();
+            Assert.That(result, Is.Not.Null);
         }
 
         [Test]
         public void Test4()
         {
-            //Act
 
-            //Assert
         }
 
         [Test]
