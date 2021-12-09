@@ -100,9 +100,10 @@ namespace I8SSYF_HFT_2021221.Test
         }
 
         [Test]
-        public void Test4()
+        public void AveragePriceByModels()
         {
-
+            var result = carLogic.AveragePriceByModels().ToList();
+            Assert.That(result, Is.Empty);
         }
 
         [Test]
