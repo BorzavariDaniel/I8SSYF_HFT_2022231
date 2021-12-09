@@ -14,19 +14,23 @@ namespace I8SSYF_HFT_2021221.Test
     [TestFixture]
     public class LogicTest
     {
-        ICarLogic logic;
+        CarLogic carLogic;
+        //ModelLogic modelLogic;
+        //EngineLogic engineLogic;
 
         [SetUp]
         public void Setup()
         {
-            Mock<ICarRepository> mockRepo = new Mock<ICarRepository>();
+            Mock<ICarRepository> mockCarRepo = new Mock<ICarRepository>();
+            Mock<IModelRepository> mockModelRepo = new Mock<IModelRepository>();
+            Mock<IEngineRepository> mockEngineRepo = new Mock<IEngineRepository>();
 
             Model model1 = new Model() { Shape = "Sedan" };
             Model model2 = new Model() { Shape = "Touring" };
             Model model3 = new Model() { Shape = "Coupe" };
 
 
-            mockRepo.Setup(x => x.ReadAll()).Returns(new List<Car>
+            mockCarRepo.Setup(x => x.ReadAll()).Returns(new List<Car>
             {
                 new Car()
                 {
@@ -50,22 +54,42 @@ namespace I8SSYF_HFT_2021221.Test
                 },
             }.AsQueryable());
 
-            logic = new CarLogic(mockRepo.Object);
+            carLogic = new CarLogic(mockCarRepo.Object);
+
+            mockEngineRepo.Setup(x => x.ReadAll()).Returns(new List<Engine>
+            {
+                new Engine()
+                {
+                    Fuel = "Petrol",
+                    NumOfCylinders = 6
+                },
+
+                new Engine()
+                {
+                    Fuel = "Diesel",
+                    NumOfCylinders = 6
+                },
+
+                new Engine()
+                {
+                    Fuel = "Petrol",
+                    NumOfCylinders = 8
+                },
+            }.AsQueryable()); 
         }
 
         [Test]
         public void TestAveragePrice()
         {
-            double avg = logic.AveragePrice();
+            double avg = carLogic.AveragePrice();
             Assert.That(avg, Is.EqualTo(2875000));
         }
 
         [Test]
         public void Test2()
         {
-            //Act
-
-            //Assert
+            var result = carLogic.AveragePrice();
+            Assert.That(result, Is.Not.Null);
         }
 
         [Test]
