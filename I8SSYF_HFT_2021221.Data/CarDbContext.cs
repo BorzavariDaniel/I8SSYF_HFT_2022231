@@ -23,8 +23,8 @@ namespace I8SSYF_HFT_2021221.Data
         {
             if (!builder.IsConfigured)
             {
-                string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
-                builder.UseLazyLoadingProxies().UseSqlServer(connection);
+                //string connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\Database1.mdf;Integrated Security=True";
+                builder.UseLazyLoadingProxies().UseInMemoryDatabase("cardatabase");
             }
         }
 
