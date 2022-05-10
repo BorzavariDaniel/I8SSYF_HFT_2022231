@@ -18,20 +18,25 @@ namespace I8SSYF_HFT_2021221.Test
         //ModelLogic modelLogic;
         //EngineLogic engineLogic;
 
+        Mock<ICarRepository> mockCarRepo = new Mock<ICarRepository>();
+        //Mock<IModelRepository> mockModelRepo = new Mock<IModelRepository>();
+        //Mock<IEngineRepository> mockEngineRepo = new Mock<IEngineRepository>();
+
         [SetUp]
         public void Setup()
         {
-            Mock<ICarRepository> mockCarRepo = new Mock<ICarRepository>();
-            Mock<IModelRepository> mockModelRepo = new Mock<IModelRepository>();
-            Mock<IEngineRepository> mockEngineRepo = new Mock<IEngineRepository>();
-
             Model model1 = new Model() { Shape = "Sedan" };
             Model model2 = new Model() { Shape = "Touring" };
             Model model3 = new Model() { Shape = "Coupe" };
 
-            Engine engine1 = new Engine() {Fuel = "Petrol", NumOfCylinders = 6 };
-            Engine engine2= new Engine() { Fuel = "Diesel", NumOfCylinders = 6 };
-            Engine engine3 = new Engine() { Fuel = "Petrol", NumOfCylinders = 8};
+            Engine engine1 = new Engine() { Fuel = "Petrol", NumOfCylinders = 6 };
+            Engine engine2 = new Engine() { Fuel = "Diesel", NumOfCylinders = 6 };
+            Engine engine3 = new Engine() { Fuel = "Petrol", NumOfCylinders = 8 };
+
+            Car car1 = new Car() { Id = 1, Name = "BMW 530i", Price = 3000000 };
+            Car car2 = new Car() { Id = 2, Name = "BMW 525i", Price = 2500000 };
+            Car car3 = new Car() { Id = 3, Name = "BMW 545i", Price = 4000000 };
+
 
 
             mockCarRepo.Setup(x => x.ReadAll()).Returns(new List<Car>
@@ -113,6 +118,57 @@ namespace I8SSYF_HFT_2021221.Test
             var result = carLogic.SedanCount();
 
             Assert.That(result, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void TestDelete()
+        {
+            carLogic.Delete(1);
+
+            mockCarRepo.Verify(x => x.Delete(It.IsAny<int>()), Times.Once);
+        }
+
+        [Test]
+        public void TestCreate()
+        {
+            var car = new Car() { Name = "BMW 530i" };
+            carLogic.Create(car);
+
+            mockCarRepo.Verify(x => x.Create(car), Times.Once);
+        }
+
+        [Test]
+        public void TestUpdate()
+        {
+            var car = new Car() {Id = 1, Name = "BMW 530i Individual Edition", Price = 9000000 };
+            carLogic.Update(car);
+
+            mockCarRepo.Verify(x => x.Update(car), Times.Once);
+        }
+
+        [Test]
+        public void TestReadWithInvalidIdThrowsException()
+        {
+            mockCarRepo.Setup(x => x.Read(It.IsAny<int>())).Returns(value: null);
+
+            Assert.Throws<ArgumentException>(() => carLogic.Read(1));
+        }
+
+        [Test]
+        public void TestReadWithValidIdReturnsExpectedObject()
+        {
+            Car expected = new Car()
+            {
+                Id = 1,
+                Name = "BMW 530i",
+                Price = 3000000
+            };
+
+            mockCarRepo.Setup(x => x.Read(1)).Returns(expected);
+
+            var investigated = carLogic.Read(1);
+
+            Assert.That(investigated, Is.EqualTo(expected));
         }
     }
 }

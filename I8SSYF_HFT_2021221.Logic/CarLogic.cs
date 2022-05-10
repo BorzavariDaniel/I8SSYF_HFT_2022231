@@ -55,7 +55,7 @@ namespace I8SSYF_HFT_2021221.Logic
 
         public Car Read(int carId)
         {
-            return repo.Read(carId);
+            return repo.Read(carId) ?? throw new ArgumentException("Car with the specified id does not exists.");
         }
 
         public IQueryable<Car> ReadAll()
