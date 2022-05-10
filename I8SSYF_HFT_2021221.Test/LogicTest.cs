@@ -29,53 +29,40 @@ namespace I8SSYF_HFT_2021221.Test
             Model model2 = new Model() { Shape = "Touring" };
             Model model3 = new Model() { Shape = "Coupe" };
 
+            Engine engine1 = new Engine() {Fuel = "Petrol", NumOfCylinders = 6 };
+            Engine engine2= new Engine() { Fuel = "Diesel", NumOfCylinders = 6 };
+            Engine engine3 = new Engine() { Fuel = "Petrol", NumOfCylinders = 8};
+
 
             mockCarRepo.Setup(x => x.ReadAll()).Returns(new List<Car>
             {
                 new Car()
                 {
                     Price = 3000000,
-                    Model = model1
+                    Model = model1,
+                    Engine = engine1
                 },
                 new Car()
                 {
                     Price = 2500000,
-                    Model = model2
+                    Model = model2,
+                    Engine = engine2
                 },
                 new Car()
                 {
                     Price = 4000000,
-                    Model = model1
+                    Model = model1,
+                    Engine = engine1
                 },
                 new Car()
                 {
                     Price = 2000000,
-                    Model = model3
+                    Model = model3,
+                    Engine = engine3
                 },
             }.AsQueryable());
 
             carLogic = new CarLogic(mockCarRepo.Object);
-
-            mockEngineRepo.Setup(x => x.ReadAll()).Returns(new List<Engine>
-            {
-                new Engine()
-                {
-                    Fuel = "Petrol",
-                    NumOfCylinders = 6
-                },
-
-                new Engine()
-                {
-                    Fuel = "Diesel",
-                    NumOfCylinders = 6
-                },
-
-                new Engine()
-                {
-                    Fuel = "Petrol",
-                    NumOfCylinders = 8
-                },
-            }.AsQueryable()); 
         }
 
         [Test]
@@ -86,32 +73,46 @@ namespace I8SSYF_HFT_2021221.Test
         }
 
         [Test]
-        public void Test2()
+        public void TestAverageNumberOfCylindersByModels()
         {
-            var result = carLogic.AveragePrice();
-            Assert.That(result, Is.Not.Null);
+            var result = carLogic.AverageNumberOfCylindersByModels();
+
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("Sedan", 6),
+                new KeyValuePair<string, double>("Touring", 6),
+                new KeyValuePair<string, double>("Coupe", 8)
+            };
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void Test3()
+        public void TestPetrolCars()
+        {
+            var result = carLogic.PetrolCars();
+            Assert.That(result, Is.EqualTo(3));
+        }
+
+        [Test]
+        public void TestAveragePriceByModels()
         {
             var result = carLogic.AveragePriceByModels().ToList();
-            Assert.That(result, Is.Not.Null);
+
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("Sedan", 3500000),
+                new KeyValuePair<string, double>("Touring", 2500000),
+                new KeyValuePair<string, double>("Coupe", 2000000)
+            };
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
-        public void AveragePriceByModels()
+        public void TestSedanCount()
         {
-            var result = carLogic.AveragePriceByModels().ToList();
-            Assert.That(result, Is.Empty);
-        }
+            var result = carLogic.SedanCount();
 
-        [Test]
-        public void Test5()
-        {
-            //Act
-
-            //Assert
+            Assert.That(result, Is.EqualTo(2));
         }
     }
 }
