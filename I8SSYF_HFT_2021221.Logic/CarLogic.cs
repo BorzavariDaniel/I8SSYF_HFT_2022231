@@ -43,6 +43,16 @@ namespace I8SSYF_HFT_2021221.Logic
             return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Average(y => y.Engine.NumOfCylinders)));
         }
 
+        public IEnumerable<KeyValuePair<string, double>> SumPriceByModels()
+        {
+            return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Sum(y => y.Price)));
+        }
+
+        public IEnumerable<KeyValuePair<string, double>> CarCountByModels()
+        {
+            return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Count()));
+        }
+
         public void Create(Car car)
         {
             repo.Create(car);

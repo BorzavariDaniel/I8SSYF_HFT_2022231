@@ -26,5 +26,12 @@ namespace I8SSYF_HFT_2021221.Logic
 
         IEnumerable<KeyValuePair<string, double>>
             AverageNumberOfCylindersByModels();
+
+        IEnumerable<KeyValuePair<string, double>>
+            SumPriceByModels();
+
+        IEnumerable<KeyValuePair<string, double>>
+            CarCountByModels();
+
     }
 }

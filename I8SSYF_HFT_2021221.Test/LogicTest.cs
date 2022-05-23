@@ -34,7 +34,7 @@ namespace I8SSYF_HFT_2021221.Test
             Engine engine3 = new Engine() { Fuel = "Petrol", NumOfCylinders = 8 };
 
             Car car1 = new Car() { Id = 1, Name = "BMW 530i", Price = 3000000 };
-            Car car2 = new Car() { Id = 2, Name = "BMW 525i", Price = 2500000 };
+            Car car2 = new Car() { Id = 2, Name = "BMW 525d", Price = 2500000 };
             Car car3 = new Car() { Id = 3, Name = "BMW 545i", Price = 4000000 };
 
 
@@ -118,6 +118,20 @@ namespace I8SSYF_HFT_2021221.Test
             var result = carLogic.SedanCount();
 
             Assert.That(result, Is.EqualTo(2));
+        }
+
+        [Test]
+        public void TestCarCountByModels()
+        {
+            var result = carLogic.CarCountByModels();
+
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("Sedan", 2),
+                new KeyValuePair<string, double>("Touring", 1),
+                new KeyValuePair<string, double>("Coupe", 1)
+            };
+            Assert.That(result, Is.EqualTo(expected));
         }
 
         [Test]
