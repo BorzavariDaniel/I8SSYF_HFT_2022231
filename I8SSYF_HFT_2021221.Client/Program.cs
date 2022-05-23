@@ -11,7 +11,7 @@ namespace I8SSYF_HFT_2021221.Client
         {
             CarDbContext Db = new CarDbContext();
 
-            ;
+            
         }
     }
 }

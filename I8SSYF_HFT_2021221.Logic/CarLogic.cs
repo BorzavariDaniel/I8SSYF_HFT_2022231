@@ -16,18 +16,20 @@ namespace I8SSYF_HFT_2021221.Logic
         {
             this.repo = repo;
         }
-
+        
         public double AveragePrice()
         {
             return repo.ReadAll().Average(y => y.Price);
 
         }
 
+        //1
         public IEnumerable<KeyValuePair<string, double>> AveragePriceByModels()
         {
             return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Average(y => y.Price)));
         }
 
+        //2
         public int SedanCount()
         {
             return repo.ReadAll().Select(x => x.Model).Where(x => x.Shape == "Sedan").Count();
@@ -38,16 +40,19 @@ namespace I8SSYF_HFT_2021221.Logic
             return repo.ReadAll().Select(x => x.Engine).Where(x => x.Fuel == "Petrol").Count();
         }
 
+        //3
         public IEnumerable<KeyValuePair<string, double>> AverageNumberOfCylindersByModels()
         {
             return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Average(y => y.Engine.NumOfCylinders)));
         }
 
+        //4
         public IEnumerable<KeyValuePair<string, double>> SumPriceByModels()
         {
             return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Sum(y => y.Price)));
         }
 
+        //5
         public IEnumerable<KeyValuePair<string, double>> CarCountByModels()
         {
             return repo.ReadAll().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Count()));

@@ -135,6 +135,20 @@ namespace I8SSYF_HFT_2021221.Test
         }
 
         [Test]
+        public void TestSumPriceByModels()
+        {
+            var result = carLogic.SumPriceByModels();
+
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("Sedan", 7000000),
+                new KeyValuePair<string, double>("Touring", 2500000),
+                new KeyValuePair<string, double>("Coupe", 2000000)
+            };
+            Assert.That(result, Is.EqualTo(expected));
+        }
+
+        [Test]
         public void TestDelete()
         {
             carLogic.Delete(1);
