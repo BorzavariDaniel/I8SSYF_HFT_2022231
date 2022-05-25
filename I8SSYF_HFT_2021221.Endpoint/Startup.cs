@@ -1,12 +1,16 @@
-using Castle.Core.Configuration;
 using I8SSYF_HFT_2021221.Data;
 using I8SSYF_HFT_2021221.Logic;
+using I8SSYF_HFT_2021221.Models;
 using I8SSYF_HFT_2021221.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -27,19 +31,21 @@ namespace I8SSYF_HFT_2021221.Endpoint
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddTransient<IEngineLogic, EngineLogic>();
-            services.AddTransient<IModelLogic, ModelLogic>();
-            //services.AddTransient<,>();
+            services.AddTransient<CarDbContext>();
 
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddTransient<IModelRepository, ModelRepository>();
             services.AddTransient<IEngineRepository, EngineRepository>();
 
-            services.AddTransient<CarDbContext, CarDbContext>();
+            services.AddTransient<ICarLogic, CarLogic>();
+            services.AddTransient<IModelLogic, ModelLogic>();
+            services.AddTransient<IEngineLogic, EngineLogic>();
 
-            services.AddSwaggerGen(x => x.SwaggerDoc("v1", new OpenApiInfo { Title = "I8SSYF_HFT_2021221.Endpoint", Version = "v1" }));
+            services.AddControllers();
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "I8SSYF_HFT_2021221.Endpoint", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -48,10 +54,19 @@ namespace I8SSYF_HFT_2021221.Endpoint
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(x => x.SwaggerEndpoint("/swagger/vi/swagger.json", "I8SSYF_HFT_2021221.Endpoint v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "I8SSYF_HFT_2021221.Endpoint v1"));
             }
 
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features.Get<IExceptionHandlerPathFeature>().Error;
+                var response = new { error = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
+
             app.UseRouting();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
