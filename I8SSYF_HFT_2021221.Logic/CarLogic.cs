@@ -26,7 +26,7 @@ namespace I8SSYF_HFT_2021221.Logic
         //1
         public IEnumerable<KeyValuePair<string, double>> AveragePriceByModels()
         {
-            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Average(y => y.Price)));
+            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model.Shape).Select(x => new KeyValuePair<string, double>(x.Key, x.Average(y => y.Price)));
         }
 
         //2
@@ -43,19 +43,19 @@ namespace I8SSYF_HFT_2021221.Logic
         //3
         public IEnumerable<KeyValuePair<string, double>> AverageNumberOfCylindersByModels()
         {
-            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Average(y => y.Engine.NumOfCylinders)));
+            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model.Shape).Select(x => new KeyValuePair<string, double>(x.Key, x.Average(y => y.Engine.NumOfCylinders)));
         }
 
         //4
         public IEnumerable<KeyValuePair<string, double>> SumPriceByModels()
         {
-            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Sum(y => y.Price)));
+            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model.Shape).Select(x => new KeyValuePair<string, double>(x.Key, x.Sum(y => y.Price)));
         }
 
         //5
         public IEnumerable<KeyValuePair<string, double>> CarCountByModels()
         {
-            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model).Select(x => new KeyValuePair<string, double>(x.Key.Shape, x.Count()));
+            return repo.ReadAll().AsEnumerable().GroupBy(x => x.Model.Shape).Select(x => new KeyValuePair<string, double>(x.Key, x.Count()));
         }
 
         public void Create(Car car)
