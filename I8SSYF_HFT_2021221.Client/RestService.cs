@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
+﻿using System.Collections.Generic;
 using System.Net.Http;
-using System.Net.Http.Json;
-using System.Text;
-using System.Threading.Tasks;
+using System.Net;
+using System;
 
-namespace I8SSYF_HFT_2021221.Client
+namespace I8SSYF_HFT_2021221.Endpoint
 {
     class RestService
     {

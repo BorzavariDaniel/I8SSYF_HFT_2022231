@@ -45,6 +45,12 @@ namespace I8SSYF_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet]
+        public IEnumerable<KeyValuePair<string, double>> SumPriceByModels()
+        {
+            return this.carLogic.SumPriceByModels();
+        }
+
+        [HttpGet]
         public int PetrolCars()
         {
             return this.carLogic.PetrolCars();

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
 
 namespace I8SSYF_HFT_2021221.Models
 {
@@ -17,9 +18,11 @@ namespace I8SSYF_HFT_2021221.Models
         public int Price { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Engine Engine { get; set; }
 
         [NotMapped]
+        [JsonIgnore]
         public virtual Model Model { get; set; }
 
         [ForeignKey(nameof(Model))]

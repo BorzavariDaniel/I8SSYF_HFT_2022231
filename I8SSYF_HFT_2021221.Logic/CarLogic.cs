@@ -16,7 +16,7 @@ namespace I8SSYF_HFT_2021221.Logic
         {
             this.repo = repo;
         }
-        
+
         public double AveragePrice()
         {
             return repo.ReadAll().Average(y => y.Price);

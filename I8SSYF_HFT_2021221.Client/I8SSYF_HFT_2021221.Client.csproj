@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\I8SSYF_HFT_2021221.Data\I8SSYF_HFT_2021221.Data.csproj" />
+    <ProjectReference Include="..\I8SSYF_HFT_2021221.Endpoint\I8SSYF_HFT_2021221.Endpoint.csproj" />
     <ProjectReference Include="..\I8SSYF_HFT_2021221.Models\I8SSYF_HFT_2021221.Models.csproj" />
   </ItemGroup>
 
