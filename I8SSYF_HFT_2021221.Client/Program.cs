@@ -193,6 +193,16 @@ namespace I8SSYF_HFT_2021221.Client
             Console.ReadLine();
         }
 
+        static void CylindersByDescending()
+        {
+            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("Method/CylindersByDescending");
+            foreach (var item in list)
+            {
+                Console.WriteLine($"Model: {item.Key} -> Cylinders: {item.Value}");
+            }
+            Console.ReadLine();
+        }
+
         static void Main(string[] args)
         {
             restService = new RestService("http://localhost:64139/", "car");
@@ -226,6 +236,7 @@ namespace I8SSYF_HFT_2021221.Client
                 .Add("AverageNumberOfCylindersByModels", () => AverageNumberOfCylindersByModels())
                 .Add("SumPriceByModels", () => SumPriceByModels())
                 .Add("CarCountByModels", () => CarCountByModels())
+                .Add("CylindersByDescending", () => CylindersByDescending())
                 .Add("Exit", ConsoleMenu.Close);
 
             var mainMenu = new ConsoleMenu(args, level: 0)

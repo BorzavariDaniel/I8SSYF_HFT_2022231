@@ -51,15 +51,22 @@ namespace I8SSYF_HFT_2021221.Endpoint.Controllers
         }
 
         [HttpGet]
-        public int PetrolCars()
+
+        public IEnumerable<KeyValuePair<string, double>> CylindersByDescending()
         {
-            return this.carLogic.PetrolCars();
+            return this.carLogic.CylindersByDescending();
         }
 
-        [HttpGet]
-        public int SedanCount()
-        {
-            return this.carLogic.SedanCount();
-        }
+        //[HttpGet]
+        //public int PetrolCars()
+        //{
+        //    return this.carLogic.PetrolCars();
+        //}
+
+        //[HttpGet]
+        //public int SedanCount()
+        //{
+        //    return this.carLogic.SedanCount();
+        //}
     }
 }

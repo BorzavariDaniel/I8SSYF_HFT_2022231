@@ -30,15 +30,20 @@ namespace I8SSYF_HFT_2021221.Logic
         }
 
         //2
-        public int SedanCount()
+        public IEnumerable<KeyValuePair<string, double>> CylindersByDescending()
         {
-            return repo.ReadAll().Select(x => x.Model).Where(x => x.Shape == "Sedan").Count();
+            return repo.ReadAll().AsEnumerable().OrderByDescending(x => x.Engine.NumOfCylinders).Select(x => new KeyValuePair<string, double>(x.Name, x.Engine.NumOfCylinders));
         }
 
-        public int PetrolCars()
-        {
-            return repo.ReadAll().Select(x => x.Engine).Where(x => x.Fuel == "Petrol").Count();
-        }
+        //public int SedanCount()
+        //{
+        //    return repo.ReadAll().Select(x => x.Model).Where(x => x.Shape == "Sedan").Count();
+        //}
+
+        //public int PetrolCars()
+        //{
+        //    return repo.ReadAll().Select(x => x.Engine).Where(x => x.Fuel == "Petrol").Count();
+        //}
 
         //3
         public IEnumerable<KeyValuePair<string, double>> AverageNumberOfCylindersByModels()

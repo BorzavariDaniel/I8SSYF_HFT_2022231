@@ -91,12 +91,12 @@ namespace I8SSYF_HFT_2021221.Test
             Assert.That(result, Is.EqualTo(expected));
         }
 
-        [Test]
-        public void TestPetrolCars()
-        {
-            var result = carLogic.PetrolCars();
-            Assert.That(result, Is.EqualTo(3));
-        }
+        //[Test]
+        //public void TestPetrolCars()
+        //{
+        //    var result = carLogic.PetrolCars();
+        //    Assert.That(result, Is.EqualTo(3));
+        //}
 
         [Test]
         public void TestAveragePriceByModels()
@@ -113,12 +113,20 @@ namespace I8SSYF_HFT_2021221.Test
         }
 
         [Test]
-        public void TestSedanCount()
+        public void TestCylindersByDescending()
         {
-            var result = carLogic.SedanCount();
+            var result = carLogic.CylindersByDescending();
 
-            Assert.That(result, Is.EqualTo(2));
+            var expected = new KeyValuePair<string, double>("BMW 750ai", 0);
         }
+
+        //[Test]
+        //public void TestSedanCount()
+        //{
+        //    var result = carLogic.SedanCount();
+
+        //    Assert.That(result, Is.EqualTo(2));
+        //}
 
         [Test]
         public void TestCarCountByModels()
