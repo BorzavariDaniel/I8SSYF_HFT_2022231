@@ -1,13 +1,12 @@
-﻿using I8SSYF_HFT_2021221.Data;
-using I8SSYF_HFT_2021221.Models;
-using System.Linq;
+﻿using I8SSYF_HFT_2021221.Models;
 using System;
 using System.Collections.Generic;
 using ConsoleTools;
+using I8SSYF_HFT_2021221.Endpoint;
 
 namespace I8SSYF_HFT_2021221.Client
 {
-    class Program
+    internal class Program
     {
         static RestService restService;
 
@@ -72,21 +71,21 @@ namespace I8SSYF_HFT_2021221.Client
         {
             if (entity == "Car")
             {
-                Console.WriteLine("Endter car's data: ");
+                Console.WriteLine("Enter car's data: ");
                 int id = int.Parse(Console.ReadLine());
                 Car oneData = restService.Get<Car>(id, "car");
                 Console.WriteLine($"Id: {oneData.Id}, Name: {oneData.Name}");
             }
             else if (entity == "Model")
             {
-                Console.WriteLine("Endter model's data: ");
+                Console.WriteLine("Enter model's data: ");
                 int id = int.Parse(Console.ReadLine());
                 Model oneData = restService.Get<Model>(id, "model");
                 Console.WriteLine($"Id: {oneData.ModelId}, Shape: {oneData.Shape}");
             }
             else if (entity == "Engine")
             {
-                Console.WriteLine("Endter engine's data: ");
+                Console.WriteLine("Enter engine's data: ");
                 int id = int.Parse(Console.ReadLine());
                 Engine oneData = restService.Get<Engine>(id, "engine");
                 Console.WriteLine($"Id: {oneData.EngineId}, Number of cylinders: {oneData.NumOfCylinders}, Fuel: {oneData.Fuel}");
@@ -157,7 +156,7 @@ namespace I8SSYF_HFT_2021221.Client
 
         static void AveragePriceByModels()
         {
-            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("averagePriceByModels");
+            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("Method/AveragePriceByModels");
             foreach (var item in list)
             {
                 Console.WriteLine($"Model: {item.Key} -> Average price: {item.Value}");
@@ -166,7 +165,7 @@ namespace I8SSYF_HFT_2021221.Client
         }
         static void AverageNumberOfCylindersByModels()
         {
-            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("averageNumberOfCylindersByModels");
+            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("Method/AverageNumberOfCylindersByModels");
             foreach (var item in list)
             {
                 Console.WriteLine($"Model: {item.Key} -> Average number of cylinders: {item.Value}");
@@ -176,7 +175,7 @@ namespace I8SSYF_HFT_2021221.Client
 
         static void SumPriceByModels()
         {
-            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("sumPriceByModels");
+            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("Method/SumPriceByModels");
             foreach (var item in list)
             {
                 Console.WriteLine($"Model: {item.Key} -> Sum price: {item.Value}");
@@ -186,7 +185,7 @@ namespace I8SSYF_HFT_2021221.Client
 
         static void CarCountByModels()
         {
-            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("averagePriceByModels");
+            List<KeyValuePair<string, double>> list = restService.Get<KeyValuePair<string, double>>("Method/CarCountByModels");
             foreach (var item in list)
             {
                 Console.WriteLine($"Model: {item.Key} -> Count of the cars: {item.Value}");
@@ -200,11 +199,43 @@ namespace I8SSYF_HFT_2021221.Client
 
             var carMenu = new ConsoleMenu(args, level: 1)
                 .Add("List", () => List("Car"))
-                .Add("SplitDatas", () => List("Car"))
-                .Add("Create", () => List("Car"))
-                .Add("Update", () => List("Car"))
-                .Add("Delete", () => List("Car"))
+                .Add("SplitDatas", () => SplitDatas("Car"))
+                .Add("Create", () => Create("Car"))
+                .Add("Update", () => Update("Car"))
+                .Add("Delete", () => Delete("Car"))
                 .Add("Exit", ConsoleMenu.Close);
+
+            var modelMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Model"))
+                .Add("SplitDatas", () => SplitDatas("Model"))
+                .Add("Create", () => Create("Model"))
+                .Add("Update", () => Update("Model"))
+                .Add("Delete", () => Delete("Model"))
+                .Add("Exit", ConsoleMenu.Close);
+
+            var engineMenu = new ConsoleMenu(args, level: 1)
+                .Add("List", () => List("Engine"))
+                .Add("SplitDatas", () => SplitDatas("Engine"))
+                .Add("Create", () => Create("Engine"))
+                .Add("Update", () => Update("Engine"))
+                .Add("Delete", () => Delete("Engine"))
+                .Add("Exit", ConsoleMenu.Close);
+
+            var methodMenu = new ConsoleMenu(args, level: 1)
+                .Add("AveragePriceByModels", () => AveragePriceByModels())
+                .Add("AverageNumberOfCylindersByModels", () => AverageNumberOfCylindersByModels())
+                .Add("SumPriceByModels", () => SumPriceByModels())
+                .Add("CarCountByModels", () => CarCountByModels())
+                .Add("Exit", ConsoleMenu.Close);
+
+            var mainMenu = new ConsoleMenu(args, level: 0)
+                .Add("Cars", () => carMenu.Show())
+                .Add("Models", () => modelMenu.Show())
+                .Add("Engines", () => engineMenu.Show())
+                .Add("Methods", () => methodMenu.Show())
+                .Add("Exit", ConsoleMenu.Close);
+
+            mainMenu.Show();
         }
     }
 }
