@@ -117,7 +117,14 @@ namespace I8SSYF_HFT_2021221.Test
         {
             var result = carLogic.CylindersByDescending();
 
-            var expected = new KeyValuePair<string, double>("BMW 750ai", 0);
+            var expected = new List<KeyValuePair<string, double>>()
+            {
+                new KeyValuePair<string, double>("BMW 750i", 12),
+                new KeyValuePair<string, double>("BMW 740i", 8),
+                new KeyValuePair<string, double>("BMW 530i", 6),
+                new KeyValuePair<string, double>("BMW 330d", 6),
+                new KeyValuePair<string, double>("BMW 525d", 6)
+            };
         }
 
         //[Test]
