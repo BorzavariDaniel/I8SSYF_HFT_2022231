@@ -43,7 +43,7 @@ namespace I8SSYF_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /engine/id
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(int id, [FromBody] Engine value)
         {
             engineLogic.Update(value);

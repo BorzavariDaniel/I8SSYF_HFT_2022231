@@ -3,6 +3,7 @@ using I8SSYF_HFT_2021221.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,9 +44,14 @@ namespace I8SSYF_HFT_2021221.Repository
 
         public void Update(Model model)
         {
-            var oldModel = Read(model.ModelId);
-            oldModel.Shape = model.Shape;
-            oldModel.ModelId = model.ModelId;
+            var old = Read(model.ModelId);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(model));
+                }
+            }
             db.SaveChanges();
         }
     }

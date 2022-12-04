@@ -3,6 +3,7 @@ using I8SSYF_HFT_2021221.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.ConstrainedExecution;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -43,10 +44,14 @@ namespace I8SSYF_HFT_2021221.Repository
 
         public void Update(Engine engine)
         {
-            var oldEngine = Read(engine.EngineId);
-            oldEngine.Fuel = engine.Fuel;
-            oldEngine.NumOfCylinders = engine.NumOfCylinders;
-            oldEngine.EngineId = engine.EngineId;
+            var old = Read(engine.EngineId);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(engine));
+                }
+            }
             db.SaveChanges();
         }
     }

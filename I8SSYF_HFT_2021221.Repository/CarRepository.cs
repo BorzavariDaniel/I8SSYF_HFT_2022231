@@ -43,9 +43,14 @@ namespace I8SSYF_HFT_2021221.Repository
 
         public void Update(Car car)
         {
-            var oldCar = Read(car.Id);
-            oldCar.Name = car.Name;
-            oldCar.Price = car.Price;
+            var old = Read(car.Id);
+            foreach (var prop in old.GetType().GetProperties())
+            {
+                if (prop.GetAccessors().FirstOrDefault(t => t.IsVirtual) == null)
+                {
+                    prop.SetValue(old, prop.GetValue(car));
+                }
+            }
             db.SaveChanges();
         }
     }

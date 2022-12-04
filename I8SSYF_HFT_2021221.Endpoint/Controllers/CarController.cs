@@ -43,7 +43,7 @@ namespace I8SSYF_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /car/id
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(int id, [FromBody] Car value)
         {
             carLogic.Update(value);

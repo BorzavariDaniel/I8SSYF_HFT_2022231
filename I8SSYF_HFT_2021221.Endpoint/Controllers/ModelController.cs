@@ -43,7 +43,7 @@ namespace I8SSYF_HFT_2021221.Endpoint.Controllers
         }
 
         // PUT /model/id
-        [HttpPut("{id}")]
+        [HttpPut]
         public void Put(int id, [FromBody] Model value)
         {
             modelLogic.Update(value);
